@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string-array android:id="@+id/stringarray1" name="months" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <string-array name="months">
         <item>Jan</item>
         <item>Feb</item>
         <item>Mar</item>
@@ -16,4 +16,20 @@
         <item>Dec</item>
     </string-array>
 
+    <integer-array name="days">
+         <item>31</item>
+         <item>28</item>
+         <item>31</item>
+         <item>30</item>
+         <item>31</item>
+         <item>30</item>
+         <item>31</item>
+         <item>31</item>
+         <item>30</item>
+         <item>31</item>
+         <item>30</item>
+         <item>31</item>
+     </integer-array>
+    
+    
 </resources>
