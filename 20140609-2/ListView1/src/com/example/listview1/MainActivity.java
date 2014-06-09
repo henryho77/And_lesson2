@@ -73,10 +73,43 @@ public class MainActivity extends ActionBarActivity {
 			
 
 			// setDataByArrayAdapter();
- 			setDataBySimpleAdapter();
+ 			//setDataBySimpleAdapter();
+			setDataBySimpleAdapterAndMyLayout();
+			
  			return rootView;
  		}
  
+		private void setDataBySimpleAdapterAndMyLayout() {
+	 
+	 			int[] images = new int[] { R.drawable.image1, R.drawable.image2,
+	 					R.drawable.image3, R.drawable.image4, R.drawable.image5,
+	 					R.drawable.image6 };
+	 			String text[] = new String[] { "This is image1: honinbo-shusakus-185th-birthday",
+	 					"This is image2: Denmark National Day 2014", 
+	 					"This is image3: alejandro-obregons-93rd-birthday",
+	 					"This is image4: julija-beniuseviciute-zymantienes-169th-birthday", 
+	 					"This is image5: italian-republic-day-2014", 
+	 					"This is image6: dragon-boat-festival-2014"
+	 					};
+	 
+	 			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+	 
+	 			for (int i = 0; i < images.length; i++) {
+	 				Map<String, Object> item = new HashMap<String, Object>();
+	 				item.put("image", images[i]);
+	 				item.put("text", text[i]);
+	 				data.add(item);
+	 			}
+	 
+	 			String[] from = new String[] { "image", "text" };
+	 			int[] to = new int[] { R.id.imageView1, R.id.textView1 };
+	 
+	 			SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
+	 					R.layout.listview_item, from, to);
+	 			listView.setAdapter(adapter);
+	 	}
+        
+        
  		private void setDataBySimpleAdapter() {
  
  			String name[] = new String[] { "kuo", "chen" };
