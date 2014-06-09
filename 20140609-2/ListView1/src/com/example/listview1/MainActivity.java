@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
@@ -50,6 +52,8 @@ public class MainActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+    	
+    	private ListView listView;
 
         public PlaceholderFragment() {
         }
@@ -58,6 +62,15 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            
+			listView = (ListView) rootView.findViewById(R.id.listView1);
+
+			String[] data = new String[] { "1", "2", "3", "4", "5", "6", "7",
+					"8", "9", "10", "11", "12", "13" };
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					getActivity(), android.R.layout.simple_list_item_1, data);
+			listView.setAdapter(adapter);
+            
             return rootView;
         }
     }
