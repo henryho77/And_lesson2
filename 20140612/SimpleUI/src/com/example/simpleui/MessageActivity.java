@@ -27,6 +27,7 @@ public class MessageActivity extends Activity{
 		textView = (TextView) findViewById(R.id.textView1);
  		textView.setText(text);
 
+ 		writeFile(text);
 	}
  
  	private void writeFile(String text) {
