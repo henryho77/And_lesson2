@@ -3,6 +3,8 @@ package com.example.simpleui;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -89,14 +91,20 @@ public class MainActivity extends ActionBarActivity {
 			editText.setOnKeyListener(new OnKeyListener() {
 
 				@Override
-				public boolean onKey(View v, int keyCode, KeyEvent event) {
-					if (event.getAction() == KeyEvent.ACTION_DOWN) {
-						if (keyCode == KeyEvent.KEYCODE_ENTER) {
-							showToast(editText.getText().toString());
-							return true;
-						}
-					}
-					return false;
+ 				public boolean onKey(View v, int keyCode, KeyEvent event) {
+ 					SharedPreferences sp = getActivity().getSharedPreferences(
+ 							"settings.txt", Context.MODE_PRIVATE);
+ 					SharedPreferences.Editor editor = sp.edit();
+ 					editor.putString("text", editText.getText().toString());
+ 					editor.commit();
+ 					
+ 					if (event.getAction() == KeyEvent.ACTION_DOWN) {
+ 						if (keyCode == KeyEvent.KEYCODE_ENTER) {
+ 							showToast(editText.getText().toString());
+ 							return true;
+ 						}
+ 					}
+ 					return false;
 				}
 			});
 
