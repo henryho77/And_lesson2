@@ -22,6 +22,5 @@ public class MessageActivity extends Activity{
 		textView = (TextView) findViewById(R.id.textView1);
  		textView.setText(text);
  		
- 		Log.d("debug", text + "," + isChecked);
 	}
 }
