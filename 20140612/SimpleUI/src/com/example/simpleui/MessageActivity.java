@@ -1,5 +1,6 @@
 package com.example.simpleui;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,11 +24,11 @@ public class MessageActivity extends Activity{
 		
 		String text = getIntent().getStringExtra("text");
  		boolean isChecked = getIntent().getBooleanExtra("checkbox", false);
+ 		writeFile(text);
  		
 		textView = (TextView) findViewById(R.id.textView1);
- 		textView.setText(text);
 
- 		writeFile(text);
+ 		textView.setText(readFile());
 	}
  
  	private void writeFile(String text) {
@@ -45,4 +46,20 @@ public class MessageActivity extends Activity{
  			e.printStackTrace();
  		}
 	}
+ 	
+	private String readFile() {
+ 		try {
+ 			FileInputStream fis = openFileInput("history.txt");
+ 			byte[] buffer = new byte[1024];
+ 			fis.read(buffer);
+ 			return new String(buffer);
+ 		} catch (FileNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		return "";
+ 	}
 }
