@@ -38,10 +38,6 @@ public class MainActivity extends ActionBarActivity {
 		Parse.initialize(this, "oaa1iymryUrEgA6wDnfdVtCy9rmeuEL6cMnluXHG",
 				"UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
 		
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
-		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -146,6 +142,11 @@ public class MainActivity extends ActionBarActivity {
 			if (checkBox.isChecked()) {
 				text = "***********";
 			}
+			
+			ParseObject testObject = new ParseObject("Message");
+			testObject.put("text", text);
+			testObject.saveInBackground();
+			
 			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 			
 			Intent intent = new Intent();
