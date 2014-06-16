@@ -26,7 +26,9 @@ import android.os.Build;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -145,7 +147,16 @@ public class MainActivity extends ActionBarActivity {
 			
 			ParseObject testObject = new ParseObject("Message");
 			testObject.put("text", text);
-			testObject.saveInBackground();
+			
+			testObject.saveInBackground(new SaveCallback() {
+	 				@Override
+	 				public void done(ParseException e) {
+	 					if (e == null) {
+	 						Log.d("debug", "ok");
+	 					}
+	 				}
+	 			});
+	 			Log.d("debug", "after saveInBackground");
 			
 			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 			
