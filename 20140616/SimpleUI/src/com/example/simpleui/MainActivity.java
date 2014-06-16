@@ -24,6 +24,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.os.Build;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
+
 public class MainActivity extends ActionBarActivity {
 
 	@Override
@@ -31,6 +35,13 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		Parse.initialize(this, "oaa1iymryUrEgA6wDnfdVtCy9rmeuEL6cMnluXHG",
+				"UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
+		
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
