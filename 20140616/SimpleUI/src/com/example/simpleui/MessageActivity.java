@@ -6,12 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class MessageActivity extends Activity {
+public class MessageActivity extends ListActivity {
 
 	private TextView textView;
 
@@ -24,9 +26,12 @@ public class MessageActivity extends Activity {
 		String text = getIntent().getStringExtra("text");
 		boolean isChecked = getIntent().getBooleanExtra("checkbox", false);
 		writeFile(text);
-
-		textView = (TextView) findViewById(R.id.textView1);
-		textView.setText(readFile());
+		String history = readFile();
+		
+		String[] data = history.split("\n");
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, data);
+		setListAdapter(adapter);
 	}
 
 	private void writeFile(String text) {
