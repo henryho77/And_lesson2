@@ -23,6 +23,10 @@ public class MessageActivity extends Activity {
 
 		String text = getIntent().getStringExtra("text");
 		boolean isChecked = getIntent().getBooleanExtra("checkbox", false);
+		
+		MessageDBHelper messageDBHelper = new MessageDBHelper(this);
+		messageDBHelper.insert(new Message(text, isChecked));
+		
 		writeFile(text);
 
 		textView = (TextView) findViewById(R.id.textView1);
