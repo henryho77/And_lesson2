@@ -27,7 +27,9 @@ import android.os.Build;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 
 public class MainActivity extends ActionBarActivity {
@@ -35,10 +37,14 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
+		
 		Parse.initialize(this, "oaa1iymryUrEgA6wDnfdVtCy9rmeuEL6cMnluXHG",
 				"UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
+		
+		PushService.setDefaultPushCallback(this, MainActivity.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		
+		setContentView(R.layout.activity_main);
 		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
