@@ -29,6 +29,7 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.PushService;
 import com.parse.SaveCallback;
 
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
 				"UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
 		
 		PushService.setDefaultPushCallback(this, MainActivity.class);
+		PushService.subscribe(this, "all", MainActivity.class);
 		ParseInstallation.getCurrentInstallation().saveInBackground();
 		
 		setContentView(R.layout.activity_main);
@@ -151,24 +153,30 @@ public class MainActivity extends ActionBarActivity {
 				text = "***********";
 			}
 			
-			ParseObject testObject = new ParseObject("Message");
-			testObject.put("text", text);
-			testObject.put("checkBox", checkBox.isChecked());
-			testObject.saveInBackground(new SaveCallback() {
-	 				@Override
-	 				public void done(ParseException e) {
-	 					if (e == null) {
-	 						Log.d("debug", "ok");
-							Intent intent = new Intent();
-	 						intent.setClass(getActivity(), MessageActivity.class);
-	 						getActivity().startActivity(intent);
-
-	 					}
-	 				}
-	 			});
-	 			Log.d("debug", "after saveInBackground");
 			
-			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+			ParsePush push = new ParsePush();
+ 			push.setMessage(text);
+ 			push.setChannel("all");
+ 			push.sendInBackground();
+			
+//			ParseObject testObject = new ParseObject("Message");
+//			testObject.put("text", text);
+//			testObject.put("checkBox", checkBox.isChecked());
+//			testObject.saveInBackground(new SaveCallback() {
+//	 				@Override
+//	 				public void done(ParseException e) {
+//	 					if (e == null) {
+//	 						Log.d("debug", "ok");
+//							Intent intent = new Intent();
+//	 						intent.setClass(getActivity(), MessageActivity.class);
+//	 						getActivity().startActivity(intent);
+//
+//	 					}
+//	 				}
+//	 			});
+//	 			Log.d("debug", "after saveInBackground");
+//			
+//			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 			
 			
 		}
