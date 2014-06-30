@@ -8,4 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.takephoto.MainActivity$PlaceholderFragment" >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="138dp"
+        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
 </RelativeLayout>
