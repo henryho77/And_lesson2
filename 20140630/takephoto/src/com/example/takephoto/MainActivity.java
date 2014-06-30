@@ -1,5 +1,9 @@
 package com.example.takephoto;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -26,6 +30,13 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Parse.initialize(this, "oaa1iymryUrEgA6wDnfdVtCy9rmeuEL6cMnluXHG", "UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
+        
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+        
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
