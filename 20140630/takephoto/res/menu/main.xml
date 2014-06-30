@@ -9,4 +9,9 @@
         android:title="@string/action_settings"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/action_take_photo"
+        android:orderInCategory="100"
+        android:title="take_photo"
+        app:showAsAction="always"/>
 </menu>
