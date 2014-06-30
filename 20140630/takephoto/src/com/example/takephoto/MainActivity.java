@@ -1,6 +1,7 @@
 package com.example.takephoto;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -14,7 +15,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +32,7 @@ import android.provider.MediaStore;
 public class MainActivity extends ActionBarActivity {
 	
 	private static final int REQUEST_CODE_TAKE_PHOTO = 1;
+	private Uri outputFile;
 	
 	public static ImageView imageView;
 
@@ -71,8 +75,11 @@ public class MainActivity extends ActionBarActivity {
         } else if (id == R.id.action_take_photo) {
 			Log.d("debug", "action take photo");
 			
+			outputFile = Uri.fromFile(getTargetFile());
+			
 			Intent intent = new Intent();
 			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFile);
 			startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
 		}
         return super.onOptionsItemSelected(item);
@@ -91,21 +98,34 @@ public class MainActivity extends ActionBarActivity {
 			
 
 			if (resultCode == RESULT_OK) {
- 				Bitmap bitmap = intent.getParcelableExtra("data");
- 				saveToParse(bitmap);
- 				imageView.setImageBitmap(bitmap);
+// 				Bitmap bitmap = intent.getParcelableExtra("data");
+// 				saveToParse(bitmap);
+// 				imageView.setImageBitmap(bitmap);
+ 				imageView.setImageURI(outputFile);
  			}
 		}
 	}
     
+
+	private File getTargetFile() {
+ 		File pictureDir = Environment
+ 				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+ 		if (pictureDir.exists() == false) {
+ 			pictureDir.mkdirs();
+ 		}
+ 		return new File(pictureDir, "photo.png");
+ 	}
 
 	private void saveToParse(Bitmap bitmap) {
  		ByteArrayOutputStream baos = new ByteArrayOutputStream();
  		bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
  		byte[] bytes = baos.toByteArray();
  		final ParseFile file = new ParseFile("photo.png", bytes);
- 		file.saveInBackground(new SaveCallback() {
- 			
+
+
+		ParseObject object = new ParseObject("photo");
+ 		object.put("file", file);
+ 		object.saveInBackground(new SaveCallback() {
  			@Override
  			public void done(ParseException e) {
  				Log.d("debug", file.getUrl());
@@ -132,5 +152,4 @@ public class MainActivity extends ActionBarActivity {
             return rootView;
         }
     }
-
 }
