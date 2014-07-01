@@ -2,6 +2,9 @@ package com.example.takephoto;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -41,10 +44,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         
         Parse.initialize(this, "oaa1iymryUrEgA6wDnfdVtCy9rmeuEL6cMnluXHG", "UQb8tQRuP4gxMrp4L54Xe7YhC4UXh3DBQi6jsZeE");
-        
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
         
         setContentView(R.layout.activity_main);
 
@@ -102,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
 // 				saveToParse(bitmap);
 // 				imageView.setImageBitmap(bitmap);
  				imageView.setImageURI(outputFile);
+ 				saveToParse(getTargetFile());
  			}
 		}
 	}
@@ -115,6 +115,44 @@ public class MainActivity extends ActionBarActivity {
  		}
  		return new File(pictureDir, "photo.png");
  	}
+	
+
+	private void saveToParse(File file) {
+ 		byte[] data = new byte[(int) file.length()];
+ 
+ 		try {
+ 			FileInputStream fis = new FileInputStream(file);
+ 			// fis.read(data);
+ 
+ 			int offset = 0;
+ 			int numRead = 0;
+ 			while (true) {
+ 				numRead = fis.read(data, offset, data.length - offset);
+ 				if (numRead == -1) {
+ 					break;
+ 				}
+ 				offset += numRead;
+ 			}
+ 
+ 			final ParseFile parsefile = new ParseFile("photo.png", data);
+ 			ParseObject object = new ParseObject("photo");
+ 			object.put("file", parsefile);
+ 			object.saveInBackground(new SaveCallback() {
+ 				@Override
+ 				public void done(ParseException e) {
+ 					Log.d("debug", parsefile.getUrl());
+ 				}
+ 			});
+ 
+ 		} catch (FileNotFoundException e) {
+ 			e.printStackTrace();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 
+ 	}
+	
 
 	private void saveToParse(Bitmap bitmap) {
  		ByteArrayOutputStream baos = new ByteArrayOutputStream();
