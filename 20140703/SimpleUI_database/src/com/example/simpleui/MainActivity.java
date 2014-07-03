@@ -197,12 +197,14 @@ public class MainActivity extends ActionBarActivity {
 				text = "***********";
 			}
 			
+			String deviceId = (String) spinner.getSelectedItem();
 			
 			ParsePush push = new ParsePush();
  			push.setMessage(text);
- 			push.setChannel("all");
+// 			push.setChannel("all");
+ 			push.setChannel("id_" + deviceId);
  			push.sendInBackground();
-			
+ 			
 //			ParseObject testObject = new ParseObject("Message");
 //			testObject.put("text", text);
 //			testObject.put("checkBox", checkBox.isChecked());
@@ -221,7 +223,6 @@ public class MainActivity extends ActionBarActivity {
 //	 			Log.d("debug", "after saveInBackground");
 //			
 //			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-			
 		}
 	}
 
