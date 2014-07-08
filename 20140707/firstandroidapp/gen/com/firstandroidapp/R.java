@@ -1293,7 +1293,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050018;
         public static final int action_menu_presenter=0x7f050019;
         public static final int action_mode_close_button=0x7f050026;
-        public static final int action_settings=0x7f050059;
+        public static final int action_settings=0x7f05005a;
         public static final int activity_chooser_view_content=0x7f050027;
         public static final int always=0x7f05000d;
         public static final int beginning=0x7f050013;
@@ -1371,6 +1371,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f050022;
         public static final int up=0x7f050023;
         public static final int useLogo=0x7f050005;
+        public static final int welcome=0x7f050059;
         public static final int withText=0x7f05000e;
     }
     public static final class integer {
@@ -1487,6 +1488,7 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f080025;
         public static final int action_settings=0x7f080029;
+        public static final int app_id=0x7f08002a;
         public static final int app_name=0x7f080027;
         public static final int com_facebook_choose_friends=0x7f08000f;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f080000;
