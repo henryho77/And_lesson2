@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.example.firstandroidapp;
+package com.firstandroidapp;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;
