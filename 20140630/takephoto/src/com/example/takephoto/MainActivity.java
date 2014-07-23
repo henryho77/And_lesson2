@@ -127,11 +127,13 @@ public class MainActivity extends ActionBarActivity {
  			int offset = 0;
  			int numRead = 0;
  			while (true) {
+ 				//something wrong with fis.read, because it didn't return -1 when it ends.
  				numRead = fis.read(data, offset, data.length - offset);
- 				if (numRead == -1) {
+ 				if (numRead == -1 || numRead ==0) {
  					break;
  				}
  				offset += numRead;
+ 				Log.d("debug", "" + offset);
  			}
  
  			final ParseFile parsefile = new ParseFile("photo.png", data);
